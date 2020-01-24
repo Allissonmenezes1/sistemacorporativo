@@ -86,5 +86,28 @@ public class DaoPagamento {
     catch(SQLException erro){
         throw new RuntimeException(erro);
     }    
-}    
+}    public List<Pagamento> listPag(){
+        try{
+          List<Pagamento>pagr = new ArrayList<Pagamento>();
+                  PreparedStatement p=con.prepareStatement("select * From pagamento");
+                  rs=p.executeQuery();
+                  while(rs.next()){
+                      
+                      Pagamento  pag = new Pagamento();
+                      pag.setIdpagamento(rs.getInt("idpagamento"));
+                      pag.setTipopagamento(rs.getString("Tipopagamento"));
+                      pag.setTroco(rs.getString("Troco"));
+                      pag.setValortotal(rs.getString("valortotal"));
+                      pag.setDatapagamento(rs.getString("Datapagamento"));
+                      pag.setValorrecebido(rs.getString("Valorecebido"));
+                      
+                      pagr.add(pag);
+                  }
+                  return pagr;
+            
+      
+        }catch(SQLException erro){
+           throw new RuntimeException(erro);
+        }  
+      }
 }
